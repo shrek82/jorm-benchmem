@@ -1,0 +1,10 @@
+filippo.io/edwards25519 v1.1.0 h1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=
+filippo.io/edwards25519 v1.1.0/go.mod h1:BxyFTGdWcka3PhytdK4V28tE5sGfRvvvRV7EaN4VDT4=
+github.com/go-sql-driver/mysql v1.9.3 h1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=
+github.com/go-sql-driver/mysql v1.9.3/go.mod h1:qn46aNg1333BRMNU69Lq93t8du/dwxI64Gl8i5p1WMU=
+github.com/shrek82/jorm v0.0.0-20260111101838-508554935029 h1:uxV6O9NWOcuJDo/V6emCPolvxl5sKuB8aZHzsCxzqRs=
+github.com/shrek82/jorm v0.0.0-20260111101838-508554935029/go.mod h1:kIYk7XhRrhcKxbAe799WOn1uebmbgu1GOBbqBobhPVU=
+github.com/shrek82/jorm v0.1.0 h1:2nu56Iv0m4X/EQ3b+NvLudnf8tLaMM1DFXmu8WE2usk=
+github.com/shrek82/jorm v0.1.0/go.mod h1:kIYk7XhRrhcKxbAe799WOn1uebmbgu1GOBbqBobhPVU=
+github.com/shrek82/jorm v0.1.1 h1:UOSG9goVaOKuAVcfpMY8OHJ5waVjHyHYiZKuIUBkCZE=
+github.com/shrek82/jorm v0.1.1/go.mod h1:JbpqjZfyn/aiF0Gnw1AaRMw1uwGE+vIcgZfslcBC0aM=
