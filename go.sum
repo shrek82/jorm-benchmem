@@ -8,3 +8,7 @@ github.com/shrek82/jorm v0.1.0 h1:2nu56Iv0m4X/EQ3b+NvLudnf8tLaMM1DFXmu8WE2usk=
 github.com/shrek82/jorm v0.1.0/go.mod h1:kIYk7XhRrhcKxbAe799WOn1uebmbgu1GOBbqBobhPVU=
 github.com/shrek82/jorm v0.1.1 h1:UOSG9goVaOKuAVcfpMY8OHJ5waVjHyHYiZKuIUBkCZE=
 github.com/shrek82/jorm v0.1.1/go.mod h1:JbpqjZfyn/aiF0Gnw1AaRMw1uwGE+vIcgZfslcBC0aM=
+github.com/shrek82/jorm v0.1.2 h1:doB370UPvuTbx7n5UbUqZ7f6l+NFcr7N+n2ZPFyUWiw=
+github.com/shrek82/jorm v0.1.2/go.mod h1:JbpqjZfyn/aiF0Gnw1AaRMw1uwGE+vIcgZfslcBC0aM=
+github.com/shrek82/jorm v0.1.3 h1:i99mKtehV32JJwlGXL0zZmqcz3pQulmAY1yHdJ+hjhY=
+github.com/shrek82/jorm v0.1.3/go.mod h1:JbpqjZfyn/aiF0Gnw1AaRMw1uwGE+vIcgZfslcBC0aM=

@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/shrek82/jorm"
@@ -15,6 +14,10 @@ type User struct {
 	Age       int    `jorm:"column:age"`
 	Active    bool   `jorm:"column:active"`
 	CreatedAt string `jorm:"column:created_at"`
+}
+
+func (u *User) TableName() string {
+	return "users"
 }
 
 func main() {
@@ -33,17 +36,20 @@ func main() {
 		defer sqlDB.Close()
 	}
 
-	var users []User
-	// Query users
-	err = jorm.Model(&users, engine).Table("user").Find(&users)
-	if err != nil {
-		// Try without Table if it infers from struct name "User" -> "users" or "user"
-		// But let's keep Table("user") to be safe as per mysql.md
-		log.Printf("Query failed: %v", err)
+	// 插入用户示例
+	newUser := User{
+		Name:      "张三",
+		Email:     "zhangsan@example.com",
+		Age:       28,
+		Active:    true,
+		CreatedAt: "2025-06-25 15:04:05",
 	}
 
-	fmt.Printf("Found %d users:\n", len(users))
-	for _, u := range users {
-		fmt.Printf("%+v\n", u)
+	err = jorm.Model(&User{}, engine).Create(&newUser)
+	if err != nil {
+		log.Printf("插入用户失败: %v", err)
+	} else {
+		log.Printf("成功插入用户，ID: %d", newUser.ID)
 	}
+
 }
