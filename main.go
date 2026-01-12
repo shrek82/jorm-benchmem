@@ -4,16 +4,13 @@ import (
 	"log"
 
 	"github.com/shrek82/jorm"
-	"github.com/shrek82/jorm/driver/mysql"
+	"github.com/shrek82/jorm/driver/sqlite"
 )
 
 type User struct {
-	ID        int    `jorm:"column:id;primaryKey"`
-	Name      string `jorm:"column:name"`
-	Email     string `jorm:"column:email"`
-	Age       int    `jorm:"column:age"`
-	Active    bool   `jorm:"column:active"`
-	CreatedAt string `jorm:"column:created_at"`
+	ID   int64  `jorm:"primaryKey;autoIncrement"`
+	Name string `jorm:"column:username"`
+	Age  int
 }
 
 func (u *User) TableName() string {
@@ -21,10 +18,10 @@ func (u *User) TableName() string {
 }
 
 func main() {
-	// DSN: username:password@tcp(host:port)/database?charset=utf8mb4&parseTime=True&loc=Local
-	dsn := "root:@tcp(127.0.0.1:3306)/test?charset=utf8mb4&parseTime=true&loc=Local"
+	// SQLite 数据库文件路径
+	dsn := "test.db"
 
-	engine, err := jorm.Open(mysql.Open(dsn))
+	engine, err := jorm.Open(sqlite.Open(dsn))
 	if err != nil {
 		log.Fatalf("Failed to connect to database: %v", err)
 	}
@@ -38,11 +35,8 @@ func main() {
 
 	// 插入用户示例
 	newUser := User{
-		Name:      "张三",
-		Email:     "zhangsan@example.com",
-		Age:       28,
-		Active:    true,
-		CreatedAt: "2025-06-25 15:04:05",
+		Name: "张三",
+		Age:  28,
 	}
 
 	err = jorm.Model(&User{}, engine).Create(&newUser)
