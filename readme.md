@@ -3,3 +3,7 @@
 ```bash
 cd /Users/up/projects/jorm-gin && go test -bench=. -benchmem ./create_bench 
 ```
+
+```update性能测试
+cd /Users/up/projects/jorm-gin && go test -bench=. -benchmem ./update_bench
+```
