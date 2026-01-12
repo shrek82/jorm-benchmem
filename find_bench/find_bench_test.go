@@ -1,4 +1,5 @@
 package find_bench
+
 import (
 	"fmt"
 	"testing"
