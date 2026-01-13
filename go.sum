@@ -41,6 +41,8 @@ github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZb
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec h1:W09IVJc94icq4NjY3clb7Lk8O1qJ8BdBEF8z0ibU0rE=
 github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec/go.mod h1:qqbHyh8v60DhA7CoWK5oRCqLrMHRGoxYCSS9EjAz6Eo=
+github.com/shrek82/jorm v0.1.0-beta.1 h1:6M4OIo4JJXzqXi4yUM0dStz2mwj6wi/TJkMbjv+x5wE=
+github.com/shrek82/jorm v0.1.0-beta.1/go.mod h1:JbpqjZfyn/aiF0Gnw1AaRMw1uwGE+vIcgZfslcBC0aM=
 github.com/shrek82/jorm v0.1.3 h1:i99mKtehV32JJwlGXL0zZmqcz3pQulmAY1yHdJ+hjhY=
 github.com/shrek82/jorm v0.1.3/go.mod h1:JbpqjZfyn/aiF0Gnw1AaRMw1uwGE+vIcgZfslcBC0aM=
 github.com/shrek82/jorm v0.1.4 h1:zQ/hTCXCBkF/5Bjd1OsuQ6sw64fV4WiE+6mUiEsXPyI=
