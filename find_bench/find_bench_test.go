@@ -39,8 +39,8 @@ func setupTestData(b *testing.B, count int) {
 	}
 }
 
-// BenchmarkJormFindAll 测试 jorm FindAll 查询所有记录的 QPS
-func BenchmarkJormFindAll(b *testing.B) {
+// BenchmarkJormFindByID 测试 jorm Find 查询单条记录的 QPS
+func BenchmarkJormFindByID(b *testing.B) {
 	// 准备 1000 条测试数据
 	setupTestData(b, 1000)
 
@@ -54,16 +54,18 @@ func BenchmarkJormFindAll(b *testing.B) {
 
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		var users []User
-		err := jorm.Model(&User{}, engine).FindAll(&users)
+		var user User
+		// 查询 ID 在 1-1000 之间的随机记录
+		queryID := int64(i%1000 + 1)
+		err := jorm.Model(&User{}, engine).Where("id = ?", queryID).Find(&user)
 		if err != nil {
 			b.Fatalf("jorm find: %v", err)
 		}
 	}
 }
 
-// BenchmarkGormFindAll 测试 gorm Find 查询所有记录的 QPS
-func BenchmarkGormFindAll(b *testing.B) {
+// BenchmarkGormFindByID 测试 gorm Find 查询单条记录的 QPS
+func BenchmarkGormFindByID(b *testing.B) {
 	setupTestData(b, 1000)
 
 	db, err := NewGormDB()
@@ -78,15 +80,16 @@ func BenchmarkGormFindAll(b *testing.B) {
 
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		var users []User
-		if err := db.Find(&users).Error; err != nil {
+		var user User
+		queryID := int64(i%1000 + 1)
+		if err := db.Where("id = ?", queryID).First(&user).Error; err != nil {
 			b.Fatalf("gorm find: %v", err)
 		}
 	}
 }
 
-// BenchmarkXormFindAll 测试 xorm Find 查询所有记录的 QPS
-func BenchmarkXormFindAll(b *testing.B) {
+// BenchmarkXormFindByID 测试 xorm Find 查询单条记录的 QPS
+func BenchmarkXormFindByID(b *testing.B) {
 	setupTestData(b, 1000)
 
 	engine, err := NewXormEngine()
@@ -97,9 +100,14 @@ func BenchmarkXormFindAll(b *testing.B) {
 
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		var users []User
-		if err := engine.Find(&users); err != nil {
+		var user User
+		queryID := int64(i%1000 + 1)
+		has, err := engine.ID(queryID).Get(&user)
+		if err != nil {
 			b.Fatalf("xorm find: %v", err)
+		}
+		if !has {
+			b.Fatalf("user not found: %d", queryID)
 		}
 	}
 }
@@ -178,8 +186,8 @@ func BenchmarkXormFindLimit(b *testing.B) {
 	}
 }
 
-// BenchmarkJormFindByID 测试 jorm Find 查询单条记录的 QPS
-func BenchmarkJormFindByID(b *testing.B) {
+// BenchmarkJormFindAll 测试 jorm FindAll 查询所有记录的 QPS
+func BenchmarkJormFindAll(b *testing.B) {
 	// 准备 1000 条测试数据
 	setupTestData(b, 1000)
 
@@ -193,18 +201,16 @@ func BenchmarkJormFindByID(b *testing.B) {
 
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		var user User
-		// 查询 ID 在 1-1000 之间的随机记录
-		queryID := int64(i%1000 + 1)
-		err := jorm.Model(&User{}, engine).Where("id = ?", queryID).Find(&user)
+		var users []User
+		err := jorm.Model(&User{}, engine).FindAll(&users)
 		if err != nil {
 			b.Fatalf("jorm find: %v", err)
 		}
 	}
 }
 
-// BenchmarkGormFindByID 测试 gorm Find 查询单条记录的 QPS
-func BenchmarkGormFindByID(b *testing.B) {
+// BenchmarkGormFindAll 测试 gorm Find 查询所有记录的 QPS
+func BenchmarkGormFindAll(b *testing.B) {
 	setupTestData(b, 1000)
 
 	db, err := NewGormDB()
@@ -219,16 +225,15 @@ func BenchmarkGormFindByID(b *testing.B) {
 
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		var user User
-		queryID := int64(i%1000 + 1)
-		if err := db.Where("id = ?", queryID).First(&user).Error; err != nil {
+		var users []User
+		if err := db.Find(&users).Error; err != nil {
 			b.Fatalf("gorm find: %v", err)
 		}
 	}
 }
 
-// BenchmarkXormFindByID 测试 xorm Find 查询单条记录的 QPS
-func BenchmarkXormFindByID(b *testing.B) {
+// BenchmarkXormFindAll 测试 xorm Find 查询所有记录的 QPS
+func BenchmarkXormFindAll(b *testing.B) {
 	setupTestData(b, 1000)
 
 	engine, err := NewXormEngine()
@@ -239,14 +244,9 @@ func BenchmarkXormFindByID(b *testing.B) {
 
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		var user User
-		queryID := int64(i%1000 + 1)
-		has, err := engine.ID(queryID).Get(&user)
-		if err != nil {
+		var users []User
+		if err := engine.Find(&users); err != nil {
 			b.Fatalf("xorm find: %v", err)
-		}
-		if !has {
-			b.Fatalf("user not found: %d", queryID)
 		}
 	}
 }

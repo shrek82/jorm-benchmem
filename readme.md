@@ -2,6 +2,7 @@
 
 ```bash
 go test -bench=. -benchmem ./create_bench 
+go test -bench=BenchmarkJormInsert -benchmem
 ```
 
 ## 查找性能测试
