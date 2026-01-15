@@ -78,10 +78,10 @@ func main() {
 	}
 
 	// 5. 删除用户示例
-	// rows, err = engine.Model(&User{}).Where("id = ?", user.ID).Delete()
-	// if err != nil {
-	// 	log.Printf("删除用户失败: %v", err)
-	// } else {
-	// 	log.Printf("成功删除用户，影响行数: %d", rows)
-	// }
+	rows, err = engine.Model(&User{}).Where("id = ?", user.ID).Delete()
+	if err != nil {
+		log.Printf("删除用户失败: %v", err)
+	} else {
+		log.Printf("成功删除用户，影响行数: %d", rows)
+	}
 }
