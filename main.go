@@ -5,6 +5,7 @@ import (
 
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/shrek82/jorm"
+	"github.com/shrek82/jorm/logger"
 )
 
 type User struct {
@@ -25,6 +26,11 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to connect to database: %v", err)
 	}
+	customLogger := logger.NewStdLogger()
+	customLogger.SetLevel(logger.LogLevelInfo)
+	//customLogger.SetFormat(logger.LogFormatJSON)
+	engine.SetLogger(customLogger)
+
 	defer engine.Close()
 
 	// 1. 自动迁移 (创建表)
