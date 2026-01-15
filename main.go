@@ -2,16 +2,20 @@ package main
 
 import (
 	"log"
+	"time"
 
+	_ "github.com/go-sql-driver/mysql"
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/shrek82/jorm"
 	"github.com/shrek82/jorm/logger"
 )
 
 type User struct {
-	ID   int64  `jorm:"pk;auto"`
-	Name string `jorm:"column:username"`
-	Age  int    `jorm:"column:age"`
+	ID        int64     `jorm:"pk;auto"`
+	Name      string    `jorm:"column:username"`
+	Age       int       `jorm:"column:age"`
+	CreatedAt time.Time `jorm:"auto_time"`
+	UpdatedAt time.Time `jorm:"auto_update"`
 }
 
 func (u *User) TableName() string {
@@ -20,14 +24,14 @@ func (u *User) TableName() string {
 
 func main() {
 	// SQLite 数据库文件路径
-	dsn := "test.db"
+	//dsn := "test.db"
 
-	engine, err := jorm.Open("sqlite3", dsn, nil)
+	engine, err := jorm.Open("mysql", "root@tcp(127.0.0.1:3306)/jorm?charset=utf8mb4", nil)
 	if err != nil {
 		log.Fatalf("Failed to connect to database: %v", err)
 	}
 	customLogger := logger.NewStdLogger()
-	customLogger.SetLevel(logger.LogLevelSilent)
+	customLogger.SetLevel(logger.LogLevelInfo)
 	customLogger.SetFormat(logger.LogFormatText)
 	engine.SetLogger(customLogger)
 
@@ -38,6 +42,9 @@ func main() {
 	if err != nil {
 		log.Fatalf("AutoMigrate failed: %v", err)
 	}
+
+	//删除所有数据
+	engine.Model(&User{}).Where("id > ?", 0).Delete()
 
 	// 2. 插入用户示例
 	newUser := &User{
@@ -71,10 +78,10 @@ func main() {
 	}
 
 	// 5. 删除用户示例
-	rows, err = engine.Model(&User{}).Where("id = ?", user.ID).Delete()
-	if err != nil {
-		log.Printf("删除用户失败: %v", err)
-	} else {
-		log.Printf("成功删除用户，影响行数: %d", rows)
-	}
+	// rows, err = engine.Model(&User{}).Where("id = ?", user.ID).Delete()
+	// if err != nil {
+	// 	log.Printf("删除用户失败: %v", err)
+	// } else {
+	// 	log.Printf("成功删除用户，影响行数: %d", rows)
+	// }
 }
