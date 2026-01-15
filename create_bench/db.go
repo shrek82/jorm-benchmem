@@ -6,7 +6,6 @@ import (
 	"os"
 
 	"github.com/shrek82/jorm"
-	jormsqlite "github.com/shrek82/jorm/driver/sqlite"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 	"xorm.io/xorm"
@@ -30,7 +29,7 @@ func NewSQLDB() (*sql.DB, error) {
 
 // NewJormEngine 初始化 jorm 引擎（返回 *jorm.DB）
 func NewJormEngine() (*jorm.DB, error) {
-	db, err := jorm.Open(jormsqlite.Open(DefaultDSN()))
+	db, err := jorm.Open("sqlite3", DefaultDSN(), nil)
 	if err != nil {
 		return nil, fmt.Errorf("open jorm: %w", err)
 	}

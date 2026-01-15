@@ -3,8 +3,6 @@ package update_bench
 import (
 	"fmt"
 	"testing"
-
-	"github.com/shrek82/jorm"
 )
 
 // setupTestData 在每个 benchmark 开始前准备测试数据
@@ -48,9 +46,7 @@ func BenchmarkJormUpdateByID(b *testing.B) {
 	if err != nil {
 		b.Fatalf("new jorm engine: %v", err)
 	}
-	if sqlDB := engine.Connection(); sqlDB != nil {
-		defer sqlDB.Close()
-	}
+	defer engine.Close()
 
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
@@ -62,7 +58,7 @@ func BenchmarkJormUpdateByID(b *testing.B) {
 		}
 
 		// 使用 Where 条件进行更新
-		result, err := jorm.Model(&User{}, engine).Where("id = ?", queryID).Update(updatedUser)
+		result, err := engine.Model(&User{}).Where("id = ?", queryID).Update(updatedUser)
 		if err != nil {
 			b.Fatalf("jorm update: %v", err)
 		}
@@ -142,9 +138,7 @@ func BenchmarkJormUpdateByCondition(b *testing.B) {
 	if err != nil {
 		b.Fatalf("new jorm engine: %v", err)
 	}
-	if sqlDB := engine.Connection(); sqlDB != nil {
-		defer sqlDB.Close()
-	}
+	defer engine.Close()
 
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
@@ -156,7 +150,7 @@ func BenchmarkJormUpdateByCondition(b *testing.B) {
 			Age: 30 + i%20,
 		}
 
-		result, err := jorm.Model(&User{}, engine).Where("age BETWEEN ? AND ?", ageMin, ageMax).Update(updatedUser)
+		result, err := engine.Model(&User{}).Where("age BETWEEN ? AND ?", ageMin, ageMax).Update(updatedUser)
 		if err != nil {
 			b.Fatalf("jorm update: %v", err)
 		}
@@ -237,10 +231,7 @@ func BenchmarkJormUpdateAll(b *testing.B) {
 	if err != nil {
 		b.Fatalf("new jorm engine: %v", err)
 	}
-	jorm.SetDefault(engine)
-	if sqlDB := engine.Connection(); sqlDB != nil {
-		defer sqlDB.Close()
-	}
+	defer engine.Close()
 
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
@@ -249,7 +240,7 @@ func BenchmarkJormUpdateAll(b *testing.B) {
 		}
 
 		// 使用 WHERE 1=1 来更新所有记录
-		result, err := jorm.Model(&User{}).Where("1=1").Update(updatedUser)
+		result, err := engine.Model(&User{}).Where("1=1").Update(updatedUser)
 		if err != nil {
 			b.Fatalf("jorm update: %v", err)
 		}

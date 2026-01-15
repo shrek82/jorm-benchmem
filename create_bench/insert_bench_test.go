@@ -3,8 +3,6 @@ package create_bench
 import (
 	"fmt"
 	"testing"
-
-	"github.com/shrek82/jorm"
 )
 
 // prepareUser 生成一条测试数据，index 用于避免完全相同的数据
@@ -41,16 +39,12 @@ func BenchmarkJormInsert(b *testing.B) {
 	if err != nil {
 		b.Fatalf("new jorm engine: %v", err)
 	}
-	jorm.SetDefault(engine)
-	// 关闭底层连接
-	if sqlDB := engine.Connection(); sqlDB != nil {
-		defer sqlDB.Close()
-	}
+	defer engine.Close()
 
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		u := prepareUser(i)
-		if err := jorm.Model(&User{}).Create(u); err != nil {
+		if _, err := engine.Model(&User{}).Insert(u); err != nil {
 			b.Fatalf("jorm insert: %v", err)
 		}
 	}

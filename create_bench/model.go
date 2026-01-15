@@ -4,9 +4,17 @@ package create_bench
 // 注意：struct tag 同时包含 jorm / gorm / xorm 的配置
 
 type User struct {
-	ID   int64  `jorm:"primaryKey;autoIncrement" gorm:"primaryKey;autoIncrement" xorm:"pk autoincr"`
+	ID   int64  `jorm:"pk;auto" gorm:"primaryKey;autoIncrement" xorm:"pk autoincr"`
 	Name string `jorm:"column:username" gorm:"column:username" xorm:"username"`
 	Age  int    `jorm:"column:age" gorm:"column:age" xorm:"age"`
+}
+
+func (u *User) GetID() int64 {
+	return u.ID
+}
+
+func (u *User) SetID(id int64) {
+	u.ID = id
 }
 
 // TableName 使三种 ORM 使用同一张表

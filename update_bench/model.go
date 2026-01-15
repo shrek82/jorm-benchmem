@@ -4,7 +4,7 @@ package update_bench
 // 注意：struct tag 同时包含 jorm / gorm / xorm 的配置
 
 type User struct {
-	ID   int64  `jorm:"primaryKey;autoIncrement" gorm:"primaryKey;autoIncrement" xorm:"'id' pk autoincr"`
+	ID   int64  `jorm:"pk;auto" gorm:"primaryKey;autoIncrement" xorm:"'id' pk autoincr"`
 	Name string `jorm:"column:username" gorm:"column:username" xorm:"'username'"`
 	Age  int    `jorm:"column:age" gorm:"column:age" xorm:"'age'"`
 }
