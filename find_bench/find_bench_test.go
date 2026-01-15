@@ -48,6 +48,7 @@ func BenchmarkJormFindByID(b *testing.B) {
 	if err != nil {
 		b.Fatalf("new jorm engine: %v", err)
 	}
+	jorm.SetDefault(engine)
 	if sqlDB := engine.Connection(); sqlDB != nil {
 		defer sqlDB.Close()
 	}
@@ -57,7 +58,7 @@ func BenchmarkJormFindByID(b *testing.B) {
 		var user User
 		// 查询 ID 在 1-1000 之间的随机记录
 		queryID := int64(i%1000 + 1)
-		err := jorm.Model(&User{}, engine).Where("id = ?", queryID).Find(&user)
+		err := jorm.Model(&User{}).Where(queryID).Find(&user)
 		if err != nil {
 			b.Fatalf("jorm find: %v", err)
 		}
@@ -121,6 +122,7 @@ func BenchmarkJormFindLimit(b *testing.B) {
 	if err != nil {
 		b.Fatalf("new jorm engine: %v", err)
 	}
+	jorm.SetDefault(engine)
 	if sqlDB := engine.Connection(); sqlDB != nil {
 		defer sqlDB.Close()
 	}
@@ -128,7 +130,7 @@ func BenchmarkJormFindLimit(b *testing.B) {
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		var users []User
-		err := jorm.Model(&User{}, engine).Limit(100).FindAll(&users)
+		err := jorm.Model(&User{}).Limit(100).FindAll(&users)
 		if err != nil {
 			b.Fatalf("jorm find: %v", err)
 		}
@@ -195,6 +197,7 @@ func BenchmarkJormFindAll(b *testing.B) {
 	if err != nil {
 		b.Fatalf("new jorm engine: %v", err)
 	}
+	jorm.SetDefault(engine)
 	if sqlDB := engine.Connection(); sqlDB != nil {
 		defer sqlDB.Close()
 	}
@@ -202,7 +205,7 @@ func BenchmarkJormFindAll(b *testing.B) {
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		var users []User
-		err := jorm.Model(&User{}, engine).FindAll(&users)
+		err := jorm.Model(&User{}).FindAll(&users)
 		if err != nil {
 			b.Fatalf("jorm find: %v", err)
 		}

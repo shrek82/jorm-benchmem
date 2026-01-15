@@ -237,6 +237,7 @@ func BenchmarkJormUpdateAll(b *testing.B) {
 	if err != nil {
 		b.Fatalf("new jorm engine: %v", err)
 	}
+	jorm.SetDefault(engine)
 	if sqlDB := engine.Connection(); sqlDB != nil {
 		defer sqlDB.Close()
 	}
@@ -248,7 +249,7 @@ func BenchmarkJormUpdateAll(b *testing.B) {
 		}
 
 		// 使用 WHERE 1=1 来更新所有记录
-		result, err := jorm.Model(&User{}, engine).Where("1=1").Update(updatedUser)
+		result, err := jorm.Model(&User{}).Where("1=1").Update(updatedUser)
 		if err != nil {
 			b.Fatalf("jorm update: %v", err)
 		}

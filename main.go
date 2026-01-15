@@ -25,6 +25,10 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to connect to database: %v", err)
 	}
+
+	// 设置为全局默认数据库
+	jorm.SetDefault(engine)
+
 	// Verify connection
 	if sqlDB := engine.Connection(); sqlDB != nil {
 		if err := sqlDB.Ping(); err != nil {
@@ -34,16 +38,15 @@ func main() {
 	}
 
 	// 插入用户示例
-	newUser := User{
+	newUser := &User{
 		Name: "张三",
 		Age:  28,
 	}
 
-	err = jorm.Model(&User{}, engine).Create(&newUser)
+	err = jorm.Model(&User{}).Create(newUser)
 	if err != nil {
 		log.Printf("插入用户失败: %v", err)
 	} else {
 		log.Printf("成功插入用户，ID: %d", newUser.ID)
 	}
-
 }
