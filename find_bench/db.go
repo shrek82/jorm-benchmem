@@ -4,8 +4,10 @@ import (
 	"database/sql"
 	"fmt"
 	"os"
+	"time"
 
 	"github.com/shrek82/jorm"
+	"github.com/shrek82/jorm/middleware"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 	"xorm.io/xorm"
@@ -33,6 +35,8 @@ func NewJormEngine() (*jorm.DB, error) {
 	if err != nil {
 		return nil, fmt.Errorf("open jorm: %w", err)
 	}
+	memCache := middleware.NewMemoryCache(10 * time.Minute)
+	db.Use(memCache)
 	return db, nil
 }
 
