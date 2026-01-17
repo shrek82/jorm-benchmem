@@ -31,8 +31,8 @@ func main() {
 		log.Fatalf("Failed to connect to database: %v", err)
 	}
 	customLogger := logger.NewStdLogger()
-	customLogger.SetLevel(logger.LogLevelInfo)
-	customLogger.SetFormat(logger.LogFormatText)
+	customLogger.SetLevel(logger.LevelInfo)
+	customLogger.SetFormat(logger.FormatText)
 	engine.SetLogger(customLogger)
 
 	defer engine.Close()
