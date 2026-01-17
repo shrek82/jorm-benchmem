@@ -5,7 +5,7 @@ go 1.25.4
 require (
 	github.com/go-sql-driver/mysql v1.9.3
 	github.com/mattn/go-sqlite3 v1.14.33
-	github.com/shrek82/jorm v1.0.0-alpha.6
+	github.com/shrek82/jorm v1.0.0-alpha.12
 	gorm.io/driver/sqlite v1.6.0
 	gorm.io/gorm v1.31.1
 	xorm.io/xorm v1.3.11

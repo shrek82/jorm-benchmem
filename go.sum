@@ -43,6 +43,8 @@ github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec h1:W09IVJc94
 github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec/go.mod h1:qqbHyh8v60DhA7CoWK5oRCqLrMHRGoxYCSS9EjAz6Eo=
 github.com/shrek82/jorm v1.0.0-alpha.6 h1:tixe5oPNZGrzEhrFejM/dfNVOdZBqmR8yF+OI80T2Hc=
 github.com/shrek82/jorm v1.0.0-alpha.6/go.mod h1:CFZAgO6I8smJFMRBD64U23Zue95gK0veQr5Ikxslf9g=
+github.com/shrek82/jorm v1.0.0-alpha.12 h1:tUt+A/+l7wfZ1exUL3kK3m7XbXt7K0cIRIRD9uO7+4E=
+github.com/shrek82/jorm v1.0.0-alpha.12/go.mod h1:KN9bCqaOov1mY5ZMtg2IuOhCd+0+NbrKl7AECr5GIRw=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/testify v1.3.0/go.mod h1:M5WIy9Dh21IEIfnGCwXGc5bZfKNJtfHm1UVUgZn+9EI=
 github.com/stretchr/testify v1.11.1 h1:7s2iGBzp5EwR7/aIZr8ao5+dra3wiQyKjjFuvgVKu7U=
